@@ -1,34 +1,27 @@
-function unirIntervalos(intervals) {
+function mergeIntervals(intervals) {
   if (intervals.length <= 1) {
     return intervals;
   }
 
   intervals.sort((a, b) => a[0] - b[0]);
 
-  const resultado = [intervals[0]];
+  const result = [intervals[0]];
 
   for (let i = 1; i < intervals.length; i++) {
-    const intervaloAtual = intervals[i];
-    const ultimoIntervaloUnido = resultado[resultado.length - 1];
+    const currentInterval = intervals[i];
+    const lastMergedInterval = result[result.length - 1];
 
-    if (intervaloAtual[0] <= ultimoIntervaloUnido[1]) {
-      ultimoIntervaloUnido[1] = Math.max(
-        ultimoIntervaloUnido[1],
-        intervaloAtual[1]
+    if (currentInterval[0] <= lastMergedInterval[1]) {
+      lastMergedInterval[1] = Math.max(
+        lastMergedInterval[1],
+        currentInterval[1]
       );
     } else {
-      resultado.push(intervaloAtual);
+      result.push(currentInterval);
     }
   }
 
-  return resultado;
+  return result;
 }
 
-console.log(
-  unirIntervalos([
-    [1, 3],
-    [2, 6],
-    [8, 10],
-    [15, 18],
-  ])
-);
+console.log(mergeIntervals([1, 4], [4, 5]));
